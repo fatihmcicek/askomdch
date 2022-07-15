@@ -8,7 +8,6 @@ import org.selenium.pom.base.BasePage;
 public class StorePage extends BasePage {
     private final By SEARCH_FIELD = By.xpath("//*[@id='woocommerce-product-search-field-0']");
     private final By SEARCH_FIELD_BUTTON = By.xpath("//*[@value='Search']");
-    //private final By TITLE = By.xpath("//*[@class='woocommerce-products.json-header__title page-title']");
     private final By TITLE = By.xpath("//*[@class='woocommerce-products-header__title page-title']");
     private final By VIEW_CART_LINK = By.xpath("//*[@class='added_to_cart wc-forward']");
 

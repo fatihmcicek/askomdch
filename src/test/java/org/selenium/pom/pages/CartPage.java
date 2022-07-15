@@ -18,27 +18,27 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
-    public Boolean isLoaded(){
-       return wait.until(ExpectedConditions.textToBe(CART_HEADING,"Cart"));
+    public Boolean isLoaded() {
+        return wait.until(ExpectedConditions.textToBe(CART_HEADING, "Cart"));
     }
 
-    public String getProductName(){
+    public String getProductName() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(PRODUCT_NAME)).getText();
     }
 
-    public CartPage changeProductQuantity(String chgQuantity){
+    public CartPage changeProductQuantity(String chgQuantity) {
         WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(QUANTITY_TEXT));
         e.clear();
         e.sendKeys(chgQuantity);
         return this;
     }
 
-    public CartPage updateCart(){
+    public CartPage updateCart() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(UPDATE_CART_BUTTON)).click();
         return this;
     }
 
-    public CheckoutPage clickCheckoutPage(){
+    public CheckoutPage clickCheckoutPage() {
         wait.until(ExpectedConditions.elementToBeClickable(CHECKOUT_BUTTON)).click();
         return new CheckoutPage(driver);
     }

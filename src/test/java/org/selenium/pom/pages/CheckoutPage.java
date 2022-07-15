@@ -1,6 +1,5 @@
 package org.selenium.pom.pages;
 
-import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,8 +35,6 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
-
-    // Login Section
 
     public CheckoutPage hereToLogin() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(CLICK_LOGIN)).click();
