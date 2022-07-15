@@ -13,9 +13,9 @@ public class BaseTest {
         driver = new DriverManager().initializeDriver();
     }
 
-//    @AfterMethod
-//    public void quitDriver(){
-//        driver.quit();
-//    }
+    @AfterMethod
+    public void quitDriver(){
+        driver.quit();
+    }
 
 }

@@ -3,6 +3,8 @@ package org.selenium.pom.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.selenium.pom.base.BasePage;
+import org.selenium.pom.objects.BillingAddress;
+import org.selenium.pom.objects.User;
 
 public class CheckoutPage extends BasePage {
     private final By FIRST_NAME = By.id("billing_first_name");
@@ -31,43 +33,48 @@ public class CheckoutPage extends BasePage {
 
     // Login Section
 
-    public CheckoutPage hereToLogin(){
+    public CheckoutPage hereToLogin() {
         driver.findElement(CLICK_LOGIN).click();
         return this;
     }
 
-    public CheckoutPage enterUserName(String userName){
+    public CheckoutPage enterUserName(String userName) {
         driver.findElement(ENTER_USERNAME).clear();
         driver.findElement(ENTER_USERNAME).sendKeys(userName);
         return this;
     }
 
-    public CheckoutPage enterPassword(String password){
+    private CheckoutPage enterPassword(String password) {
         driver.findElement(ENTER_PASSWORD).clear();
         driver.findElement(ENTER_PASSWORD).sendKeys(password);
         return this;
     }
 
-    public CheckoutPage clickLogginButton(){
+    private CheckoutPage clickLogginButton() {
         driver.findElement(CLICK_LOGIN_BUTTON).click();
         return this;
     }
 
+    public CheckoutPage login(User user){
+        return enterUserName(user.getUsername()).
+                enterPassword(user.getPassword()).
+                clickLogginButton();
+    }
 
     // -- Billing Details
-    public CheckoutPage enterFirstName(String firstName){
+    public CheckoutPage enterFirstName(String firstName) {
         driver.findElement(FIRST_NAME).clear();
         driver.findElement(FIRST_NAME).sendKeys(firstName);
         return this;
     }
 
-    public CheckoutPage enterLastName(String lastName){
+    public CheckoutPage enterLastName(String lastName) {
         driver.findElement(LAST_NAME).clear();
         driver.findElement(LAST_NAME).sendKeys(lastName);
         return this;
     }
 
-    public CheckoutPage enterCompanyName(String companyName){
+    public CheckoutPage enterCompanyName(String companyName) {
         driver.findElement(COMPANY_NAME).clear();
         driver.findElement(COMPANY_NAME).sendKeys(companyName);
         return this;
@@ -78,18 +85,19 @@ public class CheckoutPage extends BasePage {
 //        return this;
 //    }
 
-    public CheckoutPage enterAddress1(String address1){
+    public CheckoutPage enterAddress1(String address1) {
         driver.findElement(BILLING_ADDRESS_1).clear();
         driver.findElement(BILLING_ADDRESS_1).sendKeys(address1);
         return this;
     }
 
-    public CheckoutPage enterAddress2(String address2){
+    public CheckoutPage enterAddress2(String address2) {
         driver.findElement(BILLING_ADDRESS_2).clear();
         driver.findElement(BILLING_ADDRESS_2).sendKeys(address2);
         return this;
     }
-    public CheckoutPage enterCityField(String city){
+
+    public CheckoutPage enterCityField(String city) {
         driver.findElement(CITY).clear();
         driver.findElement(CITY).sendKeys(city);
         return this;
@@ -100,32 +108,43 @@ public class CheckoutPage extends BasePage {
 //        return this;
 //    }
 
-    public CheckoutPage enterPostCode(String postalCode){
+    public CheckoutPage enterPostCode(String postalCode) {
         driver.findElement(POST_CODE).clear();
         driver.findElement(POST_CODE).sendKeys(postalCode);
         return this;
     }
 
-    public CheckoutPage enterPhoneField(String phone){
+    public CheckoutPage enterPhoneField(String phone) {
         driver.findElement(PHONE).clear();
         driver.findElement(PHONE).sendKeys(phone);
         return this;
     }
 
-    public CheckoutPage enterEmailField(String email){
+    public CheckoutPage enterEmailField(String email) {
         driver.findElement(EMAIL).clear();
         driver.findElement(EMAIL).sendKeys(email);
         return this;
     }
 
-    public CheckoutPage clickPlaceOrder(){
+    public CheckoutPage setBillingAddress(BillingAddress billingAddress) {
+        return enterFirstName(billingAddress.getFirstName()).
+                enterLastName(billingAddress.getLastName()).
+                enterCompanyName(billingAddress.getCompanyName()).
+                enterAddress1(billingAddress.getAddressLine1()).
+                enterAddress2(billingAddress.getAddressLine2()).
+                enterCityField(billingAddress.getCity()).
+                enterPostCode(billingAddress.getPostCode()).
+                enterPhoneField(billingAddress.getPhone()).
+                enterEmailField(billingAddress.getEmail());
+    }
+
+    public CheckoutPage clickPlaceOrder() {
         driver.findElement(PLACE_ORDER).click();
         return this;
     }
 
-    public String getNotice(){
+    public String getNotice() {
         return driver.findElement(SUCCESS_NOTICE).getText();
     }
-
 
 }

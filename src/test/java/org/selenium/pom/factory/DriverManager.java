@@ -10,5 +10,4 @@ public class DriverManager {
         driver.manage().window().maximize();
         return driver;
     }
-
 }

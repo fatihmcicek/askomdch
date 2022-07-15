@@ -35,5 +35,4 @@ public class CartPage extends BasePage {
         return new CheckoutPage(driver);
     }
 
-
 }
