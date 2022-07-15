@@ -2,9 +2,11 @@
   "firstName": "Test First Name",
   "lastName": "Test Last Name",
   "companyName": "Company Name",
+  "country": "United States (US)",
   "addressLine1": "Address Line 1",
   "addressLine2": "Address Line 2",
   "city": "Test City",
+  "state": "Florida",
   "postCode": "34925",
   "phone": "1234567890",
   "email": "test@gmail.com"

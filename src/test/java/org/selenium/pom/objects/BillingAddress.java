@@ -5,12 +5,15 @@ public class BillingAddress {
     private String firstName;
     private String lastName;
     private String companyName;
+    private String country;
     private String addressLine1;
     private String addressLine2;
     private String city;
+    private String state;
     private String postCode;
     private String phone;
     private String email;
+
 
     public BillingAddress() {
 
@@ -20,17 +23,20 @@ public class BillingAddress {
                           String companyName, String addressLine1,
                           String addressLine2, String city,
                           String postCode, String phone,
-                          String email) {
+                          String email, String country, String state) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.companyName = companyName;
+        this.country = country;
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.postCode = postCode;
         this.city = city;
+        this.state = state;
         this.phone = phone;
         this.email = email;
     }
+
 
     public String getFirstName() {
         return firstName;
@@ -59,6 +65,15 @@ public class BillingAddress {
         return this;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+
     public String getAddressLine1() {
         return addressLine1;
     }
@@ -84,6 +99,14 @@ public class BillingAddress {
     public BillingAddress setCity(String city) {
         this.city = city;
         return this;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getPostCode() {

@@ -1,7 +1,11 @@
 package org.selenium.pom.pages;
 
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.selenium.pom.base.BasePage;
 import org.selenium.pom.objects.BillingAddress;
 import org.selenium.pom.objects.User;
@@ -25,7 +29,9 @@ public class CheckoutPage extends BasePage {
     private final By ENTER_USERNAME = By.xpath("//*[@id='username']");
     private final By ENTER_PASSWORD = By.xpath("//*[@id='password']");
     private final By CLICK_LOGIN_BUTTON = By.cssSelector("button[value='Login']");
+    private final By OVERLAY = By.cssSelector(".blockUI.blockOverlay");
 
+    private final By DIRECT_BANK_TRANSFER_RADION_BUTTON = By.id("payment_method_bacs");
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -34,28 +40,26 @@ public class CheckoutPage extends BasePage {
     // Login Section
 
     public CheckoutPage hereToLogin() {
-        driver.findElement(CLICK_LOGIN).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CLICK_LOGIN)).click();
         return this;
     }
 
     public CheckoutPage enterUserName(String userName) {
-        driver.findElement(ENTER_USERNAME).clear();
-        driver.findElement(ENTER_USERNAME).sendKeys(userName);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(ENTER_USERNAME)).sendKeys(userName);
         return this;
     }
 
     private CheckoutPage enterPassword(String password) {
-        driver.findElement(ENTER_PASSWORD).clear();
-        driver.findElement(ENTER_PASSWORD).sendKeys(password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(ENTER_PASSWORD)).sendKeys(password);
         return this;
     }
 
     private CheckoutPage clickLogginButton() {
-        driver.findElement(CLICK_LOGIN_BUTTON).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CLICK_LOGIN_BUTTON)).click();
         return this;
     }
 
-    public CheckoutPage login(User user){
+    public CheckoutPage login(User user) {
         return enterUserName(user.getUsername()).
                 enterPassword(user.getPassword()).
                 clickLogginButton();
@@ -63,66 +67,78 @@ public class CheckoutPage extends BasePage {
 
     // -- Billing Details
     public CheckoutPage enterFirstName(String firstName) {
-        driver.findElement(FIRST_NAME).clear();
-        driver.findElement(FIRST_NAME).sendKeys(firstName);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(FIRST_NAME));
+        e.clear();
+        e.click();
+        e.sendKeys(firstName);
         return this;
     }
 
     public CheckoutPage enterLastName(String lastName) {
-        driver.findElement(LAST_NAME).clear();
-        driver.findElement(LAST_NAME).sendKeys(lastName);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(LAST_NAME));
+        e.clear();
+        e.sendKeys(lastName);
         return this;
     }
 
     public CheckoutPage enterCompanyName(String companyName) {
-        driver.findElement(COMPANY_NAME).clear();
-        driver.findElement(COMPANY_NAME).sendKeys(companyName);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(COMPANY_NAME));
+        e.clear();
+        e.sendKeys(companyName);
         return this;
     }
 
-//    public CheckoutPage selectCountry(){
-//        driver.findElement(COUNTRY);
-//        return this;
-//    }
+    public CheckoutPage selectCountry(String countrName) {
+        Select select = new Select(driver.findElement(COUNTRY));
+        select.selectByVisibleText(countrName);
+        return this;
+    }
 
     public CheckoutPage enterAddress1(String address1) {
-        driver.findElement(BILLING_ADDRESS_1).clear();
-        driver.findElement(BILLING_ADDRESS_1).sendKeys(address1);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(BILLING_ADDRESS_1));
+        e.clear();
+        e.sendKeys(address1);
         return this;
     }
 
     public CheckoutPage enterAddress2(String address2) {
-        driver.findElement(BILLING_ADDRESS_2).clear();
-        driver.findElement(BILLING_ADDRESS_2).sendKeys(address2);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(BILLING_ADDRESS_2));
+        e.clear();
+        e.sendKeys(address2);
         return this;
     }
 
     public CheckoutPage enterCityField(String city) {
-        driver.findElement(CITY).clear();
-        driver.findElement(CITY).sendKeys(city);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(CITY));
+        e.clear();
+        e.sendKeys(city);
         return this;
     }
 
-//    public CheckoutPage stateFıeld(String state){
-//        driver.findElement(STATE).sendKeys(state);
-//        return this;
-//    }
+    public CheckoutPage selectState(String stateName) {
+        Select select = new Select(driver.findElement(STATE));
+        select.selectByVisibleText(stateName);
+        return this;
+    }
 
     public CheckoutPage enterPostCode(String postalCode) {
-        driver.findElement(POST_CODE).clear();
-        driver.findElement(POST_CODE).sendKeys(postalCode);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(POST_CODE));
+        e.clear();
+        e.sendKeys(postalCode);
         return this;
     }
 
     public CheckoutPage enterPhoneField(String phone) {
-        driver.findElement(PHONE).clear();
-        driver.findElement(PHONE).sendKeys(phone);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(PHONE));
+        e.clear();
+        e.sendKeys(phone);
         return this;
     }
 
     public CheckoutPage enterEmailField(String email) {
-        driver.findElement(EMAIL).clear();
-        driver.findElement(EMAIL).sendKeys(email);
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(EMAIL));
+        e.clear();
+        e.sendKeys(email);
         return this;
     }
 
@@ -130,21 +146,31 @@ public class CheckoutPage extends BasePage {
         return enterFirstName(billingAddress.getFirstName()).
                 enterLastName(billingAddress.getLastName()).
                 enterCompanyName(billingAddress.getCompanyName()).
+                selectCountry(billingAddress.getCountry()).
                 enterAddress1(billingAddress.getAddressLine1()).
                 enterAddress2(billingAddress.getAddressLine2()).
                 enterCityField(billingAddress.getCity()).
+                selectState(billingAddress.getState()).
                 enterPostCode(billingAddress.getPostCode()).
                 enterPhoneField(billingAddress.getPhone()).
                 enterEmailField(billingAddress.getEmail());
     }
 
     public CheckoutPage clickPlaceOrder() {
+        waitForOverlaysToDisappear(OVERLAY);
         driver.findElement(PLACE_ORDER).click();
         return this;
     }
 
     public String getNotice() {
-        return driver.findElement(SUCCESS_NOTICE).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(SUCCESS_NOTICE)).getText();
     }
 
+    public CheckoutPage selectDirectBankTransfer(){
+        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(DIRECT_BANK_TRANSFER_RADION_BUTTON));
+        if(!e.isSelected()){
+            e.click();
+        }
+        return this;
+    }
 }

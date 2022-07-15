@@ -14,7 +14,8 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void quitDriver(){
+    public void quitDriver() throws InterruptedException {
+        Thread.sleep(2000);
         driver.quit();
     }
 

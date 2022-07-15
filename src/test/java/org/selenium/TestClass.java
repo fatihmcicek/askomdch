@@ -21,39 +21,35 @@ public class TestClass extends BaseTest {
         //System.setProperty("webdriver.chrome.driver", "C:\\Software\\Selenium\\chromedriver.exe");
         //driver.get("https://askomdch.com/");
 
+        String searchFor = "Blue";
         BillingAddress billingAddress = JacksonUtils.deserializeJson("billingAddress.json", BillingAddress.class);
         Product product = new Product(1215);
-        User user = new User("demouser","demopassword");
+        User user = new User("demouser", "demopassword");
 
-        HomePage homePage = new HomePage(driver).load();
+        HomePage homePage = new HomePage(driver).
+                load();
         StorePage storePage = homePage.navigateStoreMenuLink();
-        Thread.sleep(1000);
-        storePage.search("Blue");
-        Thread.sleep(1000);
+        storePage.isLoaded();
+        storePage.search(searchFor);
+        Thread.sleep(2000);
         Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”");
-        Thread.sleep(1000);
 
         storePage.clickAddToCartButton(product.getName());
-        Thread.sleep(1000);
         CartPage cartPage = storePage.clickViewCart();
-        Thread.sleep(1000);
+        cartPage.isLoaded();
 
         Assert.assertEquals(cartPage.getProductName(), product.getName());
         cartPage.changeProductQuantity("2");
         cartPage.updateCart();
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         CheckoutPage checkoutPage = cartPage.clickCheckoutPage();
-        Thread.sleep(3000);
 
-        // ----------Login Section
         checkoutPage.hereToLogin();
-        Thread.sleep(1000);
         checkoutPage.login(user);
 
         checkoutPage.setBillingAddress(billingAddress);
-        Thread.sleep(3000);
+        checkoutPage.selectDirectBankTransfer();
         checkoutPage.clickPlaceOrder();
-        Thread.sleep(3000);
         Assert.assertEquals(checkoutPage.getNotice(), "Thank you. Your order has been received.");
     }
 }
