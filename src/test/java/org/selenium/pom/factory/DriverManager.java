@@ -6,8 +6,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.selenium.pom.constants.DriverType;
 
-import java.time.Duration;
-
 public class DriverManager {
     public WebDriver initializeDriver(String browser) {
         WebDriver driver;

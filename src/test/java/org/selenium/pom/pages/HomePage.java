@@ -8,7 +8,6 @@ import org.selenium.pom.base.BasePage;
 public class HomePage extends BasePage {
     private final By STORE_MENU_LINK = By.xpath("//*[@id='menu-item-1227']");
 
-
     public HomePage(WebDriver driver) {
         super(driver);
     }

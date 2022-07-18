@@ -11,21 +11,20 @@ public class StorePage extends BasePage {
     private final By TITLE = By.xpath("//*[@class='woocommerce-products-header__title page-title']");
     private final By VIEW_CART_LINK = By.xpath("//*[@class='added_to_cart wc-forward']");
 
-
     public StorePage(WebDriver driver) {
         super(driver);
     }
 
-    public Boolean isLoaded(){
+    public Boolean isLoaded() {
         return wait.until(ExpectedConditions.urlContains("/store"));
     }
 
-    private StorePage enterTextInSearchFıeld(String text){
+    private StorePage enterTextInSearchFıeld(String text) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(SEARCH_FIELD)).sendKeys(text);
         return this;
     }
 
-    private StorePage clickSearchButton(){
+    private StorePage clickSearchButton() {
         wait.until(ExpectedConditions.elementToBeClickable(SEARCH_FIELD_BUTTON)).click();
         return this;
     }
@@ -39,8 +38,8 @@ public class StorePage extends BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE)).getText();
     }
 
-    private By getAddToCartButtonElement(String productName){
-        return By.cssSelector("a[aria-label='Add “" +  productName + "” to your cart']");
+    private By getAddToCartButtonElement(String productName) {
+        return By.cssSelector("a[aria-label='Add “" + productName + "” to your cart']");
     }
 
     public StorePage clickAddToCartButton(String productName) {
@@ -49,7 +48,7 @@ public class StorePage extends BasePage {
         return this;
     }
 
-    public CartPage clickViewCart(){
+    public CartPage clickViewCart() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(VIEW_CART_LINK)).click();
         return new CartPage(driver);
     }
